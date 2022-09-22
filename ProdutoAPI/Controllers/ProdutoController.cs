@@ -2,6 +2,7 @@
 using ProdutoAPI.Data;
 using ProdutoAPI.Data.Dto;
 using ProdutoAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,7 +38,13 @@ namespace ProdutoAPI.Controllers
                 FirstOrDefault(produto => produto.Id == id);
             if (produto != null)
             {
-                return Ok(produto);
+                var readProdutoDto = new ReadProdutoDto
+                {
+                    Id = produto.Id,
+                    Descricao = produto.Descricao,
+                    HoraDaConsulta = DateTime.Now
+                };
+                return Ok(readProdutoDto);
             }
             return NotFound();
         }
