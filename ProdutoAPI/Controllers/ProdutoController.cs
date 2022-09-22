@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProdutoAPI.Data;
+using ProdutoAPI.Data.Dto;
 using ProdutoAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,9 @@ namespace ProdutoAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionaProduto([FromBody] Produto produto)
+        public IActionResult AdicionaProduto([FromBody] CreateProdutoDto createProdutoDto)
         {
+            var produto = new Produto{ Descricao = createProdutoDto.Descricao};
             _context.Produtos.Add(produto);
             _context.SaveChanges();
             return CreatedAtAction(nameof(RecuperaProdutoPorId), new { Id = produto.Id }, produto);
