@@ -43,7 +43,7 @@ namespace ProdutoAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizaProduto(int id, [FromBody] Produto produtoNovo)
+        public IActionResult AtualizaProduto(int id, [FromBody] UpdateProdutoDto updateProdutoDto)
         {
             var produto = _context.Produtos.
                 FirstOrDefault(produto => produto.Id == id);
@@ -51,7 +51,7 @@ namespace ProdutoAPI.Controllers
             {
                 return NotFound();
             }
-            produto.Descricao = produtoNovo.Descricao;
+            produto.Descricao = updateProdutoDto.Descricao;
             _context.SaveChanges();
             return NoContent();
         }
